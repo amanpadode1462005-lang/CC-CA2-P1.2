@@ -1,0 +1,15 @@
+# Cline System Rules for Vercel Production Deployments
+
+## Critical Context
+- This project uses a submodule/monorepo structure. 
+- The frontend codebase lives inside the `student-system-frontend` (or `frontend`) subdirectory.
+- The target production URL is: https://cc-ca-2-p1.vercel.app
+
+## Code Modification & Deployment Rules
+1. **Directory Isolation**: Before making any frontend changes or running Git/Vercel commands, always change your terminal directory into the frontend folder (e.g., `cd student-system-frontend` or `cd frontend`). Do not commit frontend changes from the root directory.
+2. **Git Sync**: Always commit and push directly to the `main` branch of the frontend repository.
+3. **Production Force Flag**: Every time you finish making changes, do not rely solely on Git hooks to update the site. You must explicitly trigger a production build using the Vercel CLI from inside the frontend directory by running:
+   ```bash
+   npx vercel --prod --yes
+   ```
+4. **No Preview Deploys**: Never run a bare `vercel` or `npx vercel` command without the `--prod` flag, as this creates a broken preview state.
